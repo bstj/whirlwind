@@ -1,0 +1,25 @@
+// main: ept.less
+.popups {
+    position:relative;
+    // height: @screenHeight;
+    
+    .popup {
+       // position:absolute;
+        z-index:999;
+        background: cyan;
+        overflow: hidden;
+        bottom:0px;
+        -webkit-transition: height 1s; /* For Safari 3.1 to 6.0 */
+        transition: height 1s;    
+
+    }
+    
+    .popupShow {
+        height: @screenHeight;
+    }
+    
+    .popupHide {
+        height: 0px;
+    }
+    
+}

@@ -1,0 +1,25 @@
+//
+   Created by ben on 30/01/16.
+h1 Task tree view
+// Nested node template
+script(type='text/ng-template', id='nodes_renderer.html')
+    div
+        i.fa.fa-times(ng-click='ctrl.delete(node);remove(this)')
+        i.fa.fa-list-ul(ng-click='ctrl.split(node)')
+        i.fa.fa-angle-double-down(ng-click='ctrl.addChild(node)')
+        i.fa.fa-level-down(ng-click='ctrl.hideOthers(node)')
+        i.fa.fa-search(ng-click='ctrl.expand(node)')
+        i.fa.fa-pencil(ng-click='ctrl.edit(node)')
+        div(ui-tree-handle='') {{node.name}}
+            .status status: {{node.status}}
+            .description(ng-bind-html='node.description')
+            .priority {{node.priority}}
+            .estimate {{node.estimate}} {{node.units}}
+            .target-date {{node.targetDate}}
+            .notes(ng-bind-html='node.notes')
+    ol(ui-tree-nodes, ng-model='node.nodes')
+        li(ng-repeat='node in node.nodes', ui-tree-node='', ng-include="'nodes_renderer.html'")
+
+div(ui-tree='ctrl.treeOptions')
+    ol#tree-root(ui-tree-nodes, ng-model='ctrl.root')
+        li(ng-repeat='node in ctrl.root', ui-tree-node, ng-include="'nodes_renderer.html'")

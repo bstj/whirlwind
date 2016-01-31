@@ -1,0 +1,55 @@
+doctype html
+//if lt IE 7
+  html.no-js.lt-ie9.lt-ie8.lt-ie7(lang='en')
+//if IE 7
+  html.no-js.lt-ie9.lt-ie8(lang='en')
+//if IE 8
+  html.no-js.lt-ie9(lang='en')
+// [if gt IE 8] <!
+html.no-js(lang='en')
+  // <![endif]
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    title Whirlwind Agile Planning
+    meta(name='description', content='')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/html5-boilerplate/css/normalize.css')
+    link(rel='stylesheet', href='/html5-boilerplate/css/main.css')
+    link(rel='stylesheet', href='font-awesome-4.2.0/css/font-awesome.min.css')
+    link(rel='stylesheet', href='/angular/angular-csp.css')
+    link(rel='stylesheet', href='/angular-ui-tree/dist/angular-ui-tree.min.css')
+    link(rel='stylesheet', href='/textAngular/dist/textAngular.css')
+    link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='app.css')
+    script(src='/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js')
+  body
+    //if lt IE 7
+      p.browsehappy
+        | You are using an
+        strong outdated
+        |  browser. Please
+        a(href='http://browsehappy.com/') upgrade your browser
+        |  to improve your experience.
+    block primary-nav
+
+    block content
+    //
+      In production use:
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+    script(src='/angular/angular.js')
+    script(src='/angular-resource/angular-resource.js')
+    script(src='/angular-route/angular-route.js')
+    script(src='/angular-animate/angular-animate.min.js')
+    script(src='/textAngular/dist/textAngular-sanitize.min.js')
+    script(src='/textAngular/dist/textAngular.min.js')
+    script(src='/angular-ui-tree/dist/angular-ui-tree.js')
+    script(src='/rangy/rangy-core.min.js')
+    script(src='/rangy/rangy-selectionsaverestore.min.js')
+    script(src='/js/whirlwind.js')
+    script(src='/js/services/util.js')
+    script(src='/js/services/store.js')
+    script(src='/js/controllers/projects-view.js')
+    script(src='/js/controllers/task-tree-view.js')
+    script(src='/js/controllers/task-editor-view.js')

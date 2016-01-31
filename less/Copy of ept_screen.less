@@ -1,0 +1,30 @@
+#ept {
+    #mainScreen {
+        @width:960px;
+        @height:1800px;
+        @top: 350px;
+        @left: 10px;
+
+//        width:@width;
+        height:@height;
+//        top:@top;
+//        left:@left;        
+
+        position:relative;
+
+        #screens {
+            position:absolute;
+        }
+    }
+    
+}
+
+.ept_screen {
+    position:absolute;
+    white-space: normal;
+    border: 1px solid @border1;
+//    background-color: @bgcolor;
+    margin: 0;
+    padding: 0;
+    overflow-y:auto;
+}

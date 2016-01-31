@@ -1,0 +1,14 @@
+extends layout
+
+block primary-nav
+  ul.menu
+    li
+      a(href='#/projects-view') Projects
+    //li
+    //  a(href='#/task-tree-view') Tasks
+    //li
+    //  a(href='#/task-editor-view') Editor
+
+block content
+  .view-animate-container(ng-app='whirlwind')
+    div(ng-view='')

@@ -1,0 +1,10 @@
+p This is the partial for projects view .
+h1 Projects
+div(ng-repeat='project in ctrl.projects')
+    i.fa.fa-pencil(ng-click='ctrl.edit(project)')
+    i.fa.fa-list-ul(ng-click='ctrl.tasks(project)')
+    h2(ng-click='ctrl.tasks(project)') {{ project.name }}
+div
+    button.btn.btn-primary(ng-click='ctrl.newProject()') New Project
+
+

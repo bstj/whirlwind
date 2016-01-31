@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Whirlwind Agile Planning</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/html5-boilerplate/css/normalize.css">
+  <link rel="stylesheet" href="/html5-boilerplate/css/main.css">
+  <link rel="stylesheet" href="font-awesome-4.2.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/angular/angular-csp.css">
+  <link rel="stylesheet" href="/angular-ui-tree/dist/angular-ui-tree.min.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+  <ul class="menu">
+    <li><a href="#/projects-view">Projects</a></li>
+    <li><a href="#/task-tree-view">Tasks</a></li>
+    <li><a href="#/task-editor-view">Editor</a></li>  </ul>
+
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+  <div ng-app="whirlwind" class="view-animate-container">
+    <div ng-view></div>
+  </div>
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+  <script src="/angular/angular.js"></script>
+  <script src="/angular-resource/angular-resource.js"></script>
+  <script src="/angular-route/angular-route.js"></script>
+  <script src="/angular-animate/angular-animate.min.js"></script>
+  <script src="/textAngular/dist/textAngular-sanitize.min.js"></script>
+  <script src="/textAngular/dist/textAngular.min.js"></script>
+  <script src="/angular-ui-tree/dist/angular-ui-tree.js"></script>
+  <script src="/rangy/rangy-core.min.js"></script>
+  <script src="/rangy/rangy-selectionsaverestore.min.js"></script>
+  <script src="app.js"></script>
+  <script src="components/store/store.js"></script>
+  <script src="../views/projects-view/projects-view.js"></script>
+  <script src="../views/task-tree-view/task-tree-view.js"></script>
+  <script src="../views/task-editor-view/task-editor-view.js"></script>
+</body>
+</html>

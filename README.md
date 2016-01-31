@@ -1,4 +1,8 @@
 whirlwind
 =========
 
-Agile planning tool. Ever used XPlanner and thought you would like something better? Something easier to use? Something modern?
+Hierarchical planning and estimation tool.
+
+What? How Long? When? Now Do it.
+
+
