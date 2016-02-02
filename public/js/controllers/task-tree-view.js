@@ -16,51 +16,52 @@ angular.module('whirlwind.task-tree-view', ['ngRoute', 'ui.tree','whirlwind.serv
             // need to fix order and parent
             var i;
             var changed = {};
-            var task = event.source.nodeScope.$modelValue;
+            var node = event.source.nodeScope.$modelValue;
             var oldParent = event.source.nodeScope.$parentNodeScope.$modelValue;
             var newParent = event.dest.nodesScope.$parent.$modelValue;
 
             // first update indexes on old array
             if (oldParent !== undefined) {
                 for (i = 0; i < oldParent.nodes.length; i++) {
-                    if (oldParent.nodes[i].order !== i) {
-                        oldParent.nodes[i].order = i;
-                        changed[oldParent.nodes[i]._id.toString()] = oldParent.nodes[i];
+                    if (oldParent.nodes[i].task.order !== i) {
+                        oldParent.nodes[i].task.order = i;
+                        changed[oldParent.nodes[i].task._id.toString()] = oldParent.nodes[i].task;
                     }
                 }
             }
             if (newParent !== undefined && newParent !== oldParent) {
                 for (i = 0; i < newParent.nodes.length; i++) {
-                    if (newParent.nodes[i].order !== i) {
-                        newParent.nodes[i].order = i;
-                        changed[newParent.nodes[i]._id.toString()] = newParent.nodes[i];
+                    if (newParent.nodes[i].task.order !== i) {
+                        newParent.nodes[i].task.order = i;
+                        changed[newParent.nodes[i].task._id.toString()] = newParent.nodes[i].task;
                     }
                 }
             }
-            task.parent = (newParent === undefined) ? 0 : newParent._id;
-            changed[task._id.toString()] = task;
+            node.task.parent = (newParent === undefined) ? 0 : newParent.task._id;
+            changed[node.task._id.toString()] = node.task;
             store.bulkSave(changed);
         }
     };
 
-    var initNodes = function(parent) {
-        if (self.children[parent._id.toString()]) {
-            parent.nodes = self.children[parent._id.toString()].sort(function(t1, t2) {
-                return t1.order - t2.order;
+    var initNodes = function(node) {
+        if (self.children[node.task._id.toString()]) {
+            node.nodes = self.children[node.task._id.toString()].sort(function(n1, n2) {
+                return n1.task.order - n2.task.order;
             });
-            angular.forEach(parent.nodes, initNodes);
+            angular.forEach(node.nodes, initNodes);
         }
     };
 
     var initTasks = function(tasks) {
         self.children = {};
         angular.forEach(tasks, function(task){
-          var parent = task.parent.toString();
-          if(self.children[parent] === undefined) {
-            self.children[parent] = [task];
-          } else {
-            self.children[parent].push(task);
-          }
+            var node = {task: task, nodes: []};
+            var parent = task.parent.toString();
+            if(self.children[parent] === undefined) {
+                self.children[parent] = [node];
+            } else {
+                self.children[parent].push(node);
+            }
         });
 
         self.root = self.children["0"];
@@ -130,6 +131,8 @@ angular.module('whirlwind.task-tree-view', ['ngRoute', 'ui.tree','whirlwind.serv
         document.location = "#/task-editor-view/" + task._id;
     };
 
-
+    self.isRoot = function(node) {
+        return node === self.root[0];
+    }
 
 }]);

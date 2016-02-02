@@ -43,6 +43,7 @@ sendError = function(res, err, query) {
 
 update = function(req, res) {
     var query = parseRequest(req);
+    delete query.document.nodes; // dont want to store children TODO remove this once client code fixed
     if (query.document._id) {
         query.collection.save(query.document, function(err, result) {
             if (err === null) {

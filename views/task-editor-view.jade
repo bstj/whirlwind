@@ -3,6 +3,9 @@
 p This is the partial for task editor view .
 form(ng-init='ctrl.getTask()', ng-submit='ctrl.save()')
     div
+        button(class='btn', ng-click='ctrl.cancel()') Cancel
+        input(class='btn btn-primary', type='submit', name='Save' value='Save')
+    div
         label(for='name') Name
         input#name(type='text', required='', ng-model='ctrl.task.name')
     div
@@ -36,6 +39,6 @@ form(ng-init='ctrl.getTask()', ng-submit='ctrl.save()')
         label(for='modified') Modified
         span#modified {{ctrl.task.modified}}
     div
-        button(ng-click='ctrl.cancel()') Cancel
-        input(type='submit', name='Save')
+        button(class='btn', ng-click='ctrl.cancel()') Cancel
+        input(class='btn btn-primary', type='submit', name='Save' value='Save')
 
