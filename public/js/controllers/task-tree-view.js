@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module('whirlwind.task-tree-view', ['ngRoute', 'ui.tree','whirlwind.services.store', 'whirlwind.services.util'])
+angular.module('whirlwind.task-tree-view', ['ngRoute', 'ui.tree','ui.bootstrap','whirlwind.services.store', 'whirlwind.services.util'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/task-tree-view/:projectid', {
     templateUrl: 'views/task-tree-view',
-    controller: 'View2Ctrl as ctrl'
+    controller: 'TaskTreeController as ctrl'
   });
 }])
 
-.controller('View2Ctrl', ['util', 'store', '$routeParams', function(util, store, $routeParams) {
+.controller('TaskTreeController', ['$scope','util', 'store', '$routeParams', '$uibModal', function($scope, util, store, $routeParams, $uibModal) {
     var self = this;
     self.treeOptions = {
         dropped: function(event) {
@@ -17,7 +17,7 @@ angular.module('whirlwind.task-tree-view', ['ngRoute', 'ui.tree','whirlwind.serv
             var i;
             var changed = {};
             var node = event.source.nodeScope.$modelValue;
-            var oldParent = event.source.nodeScope.$parentNodeScope.$modelValue;
+            var oldParent = (event.source.nodeScope.$parentNodeScope === null) ? self.root[0] : event.source.nodeScope.$parentNodeScope.$modelValue;
             var newParent = event.dest.nodesScope.$parent.$modelValue;
 
             // first update indexes on old array
@@ -37,7 +37,7 @@ angular.module('whirlwind.task-tree-view', ['ngRoute', 'ui.tree','whirlwind.serv
                     }
                 }
             }
-            node.task.parent = (newParent === undefined) ? 0 : newParent.task._id;
+            node.task.parent = (newParent === undefined) ? self.root[0].task._id : newParent.task._id;
             changed[node.task._id.toString()] = node.task;
             store.bulkSave(changed);
         }
@@ -73,16 +73,25 @@ angular.module('whirlwind.task-tree-view', ['ngRoute', 'ui.tree','whirlwind.serv
         initTasks(tasks);
     });
 
-    self.delete = function(task) {
-        console.log("delete " + task._id);
-        store.delete(task);
+    self.delete = function(scope) {
+        var task = scope.$modelValue.task;
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'deleteConfirmationModal.html',
+            controller: 'DeleteTaskModalController as dctrl'
+        });
+        modalInstance.result.then(function () {
+            console.log("delete " + task._id);
+            store.delete(task);
+            scope.remove(scope);
+        });
     };
-    self.split = function(task) {
-        console.log("split " + task._id);
+    self.split = function(node) {
+        var task = node.task;
         var list = task.description.split(/<li>|<\/li><li>|<\/li>/);
         var subestimate = task.estimate / (list.length - 2);
-        var currentChildrenN = task.nodes.length - 1;
-        for (i = 1; i < list.length - 1; i++) { // ignore first and last
+        var currentChildrenN = node.nodes.length - 1;
+        for (var i = 1; i < list.length - 1; i++) { // ignore first and last
             // TODO need to check if child already exists with name
             store.create({
                 name: util.stripTags(list[i]),
@@ -130,9 +139,20 @@ angular.module('whirlwind.task-tree-view', ['ngRoute', 'ui.tree','whirlwind.serv
         store.setCurrent(task);
         document.location = "#/task-editor-view/" + task._id;
     };
-
     self.isRoot = function(node) {
         return node === self.root[0];
     }
 
+}]);
+
+angular.module('whirlwind.task-tree-view').controller('DeleteTaskModalController', ['$uibModalInstance', function ($uibModalInstance) {
+    var self = this;
+
+    self.delete = function () {
+        $uibModalInstance.close('delete');
+    };
+
+    self.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
 }]);

@@ -56,6 +56,7 @@ angular.module('whirlwind.services.store', [
                 }
             }
             task.$delete({_id: task._id});
+            // TODO error handling - return promise when done
         }
 
     };

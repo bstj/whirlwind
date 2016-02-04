@@ -1,26 +1,43 @@
 //
    Created by ben on 30/01/16.
-h1 Task tree view
+h1 {{ctrl.root[0].task.name}}
+button.btn.btn-primary(ng-click='ctrl.addChild(ctrl.root[0].task)') Add task
+// delete task confirmation template
+script(type="text/ng-template", id="deleteConfirmationModal.html")
+    .modal-header
+        h3(class="modal-title") Are you sure?
+    .modal-body
+        p
+            This task and all its subtasks will be deleted.
+    .modal-footer
+        button.btn.btn-primary(ng-click="dctrl.cancel()") Cancel
+        button.btn.btn-danger.pull-right(ng-click="dctrl.delete()") Delete
+
 // Nested node template
 script(type='text/ng-template', id='nodes_renderer.html')
-    div
-        i.fa.fa-times(ng-click='ctrl.delete(node.task);remove(this)')
-        i.fa.fa-list-ul(ng-click='ctrl.split(node.task)')
-        i.fa.fa-angle-double-down(ng-click='ctrl.addChild(node.task)')
-        i.fa.fa-level-down(ng-click='ctrl.hideOthers(node)')
-        i.fa.fa-search(ng-click='ctrl.expand(node)')
-        i.fa.fa-pencil(ng-click='ctrl.edit(node.task)')
-        i.fa.fa-rocket(ui-tree-handle, ng-hide='ctrl.isRoot(node)')
-    h3 {{node.task.name}}
+    .task
+        .button-bar
+            a.btn.btn-success.btn-xs(ng-if="node.nodes && node.nodes.length > 0", data-nodrag, ng-click="toggle(this)")
+                span.glyphicon.glyphicon-chevron-down(ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}")
+            a.btn.btn-success.btn-xs(data-nodrag, ng-click='ctrl.delete(this)', tooltip-placement="top", uib-tooltip="delete")
+                span.glyphicon.glyphicon-remove
+            a.btn.btn-success.btn-xs(data-nodrag, ng-click='ctrl.split(node)', tooltip-placement="top", uib-tooltip="split")
+                span.glyphicon.glyphicon-th-list
+            a.btn.btn-success.btn-xs(data-nodrag, ng-click='ctrl.addChild(node.task)', tooltip-placement="top", uib-tooltip="add child")
+                span.glyphicon.glyphicon-plus
+            a.btn.btn-success.btn-xs(data-nodrag, ng-click='ctrl.edit(node.task)', tooltip-placement="top", uib-tooltip="edit")
+                span.glyphicon.glyphicon-pencil
+        .task-content
+            h3 {{node.task.name}}
             .status status: {{node.task.status}}
             .description(ng-bind-html='node.task.description')
             //.priority {{node.priority}}
             //.estimate {{node.estimate}} {{node.units}}
             //.target-date {{node.targetDate}}
             //.notes(ng-bind-html='node.notes')
-    ol(ui-tree-nodes, ng-model='node.nodes')
+    ol(ui-tree-nodes, ng-model='node.nodes', ng-class="{hidden: collapsed}")
         li(ng-repeat='node in node.nodes', ui-tree-node='', ng-include="'nodes_renderer.html'")
 
 div(ui-tree='ctrl.treeOptions')
-    ol#tree-root(ui-tree-nodes, data-nodrop-enabled, ng-model='ctrl.root')
-        li(ng-repeat='node in ctrl.root', ui-tree-node, ng-include="'nodes_renderer.html'")
+    ol#tree-root(ui-tree-nodes, ng-model='ctrl.root[0].nodes')
+        li(ng-repeat='node in ctrl.root[0].nodes', ui-tree-node, ng-include="'nodes_renderer.html'")
