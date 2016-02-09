@@ -1,7 +1,8 @@
 //
    Created by ben on 30/01/16.
-h1 {{ctrl.root[0].task.name}}
-button.btn.btn-primary(ng-click='ctrl.addChild(ctrl.root[0].task)') Add task
+row
+    h1 {{ctrl.root[0].task.name}}
+    button.btn.btn-primary(ng-click='ctrl.addChild(ctrl.root[0].task)') Add task
 // delete task confirmation template
 script(type="text/ng-template", id="deleteConfirmationModal.html")
     .modal-header
@@ -15,7 +16,7 @@ script(type="text/ng-template", id="deleteConfirmationModal.html")
 
 // Nested node template
 script(type='text/ng-template', id='nodes_renderer.html')
-    .task
+    .task(ng-class='ctrl.getClass(node.task)')
         .button-bar
             a.btn.btn-success.btn-xs(ng-if="node.nodes && node.nodes.length > 0", data-nodrag, ng-click="toggle(this)")
                 span.glyphicon.glyphicon-chevron-down(ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}")
@@ -37,7 +38,10 @@ script(type='text/ng-template', id='nodes_renderer.html')
             //.notes(ng-bind-html='node.notes')
     ol(ui-tree-nodes, ng-model='node.nodes', ng-class="{hidden: collapsed}")
         li(ng-repeat='node in node.nodes', ui-tree-node='', ng-include="'nodes_renderer.html'")
-
-div(ui-tree='ctrl.treeOptions')
-    ol#tree-root(ui-tree-nodes, ng-model='ctrl.root[0].nodes')
-        li(ng-repeat='node in ctrl.root[0].nodes', ui-tree-node, ng-include="'nodes_renderer.html'")
+row
+    .col-xs-8
+        div(ui-tree='ctrl.treeOptions')
+            ol#tree-root(ui-tree-nodes, ng-model='ctrl.root[0].nodes')
+                li(ng-repeat='node in ctrl.root[0].nodes', ui-tree-node, ng-include="'nodes_renderer.html'")
+    .col-xs-4
+        include ./styler

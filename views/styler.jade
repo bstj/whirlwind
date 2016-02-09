@@ -1,0 +1,14 @@
+//
+   Created by ben on 31/01/16.
+.ww-styler(ng-controller='StyleController as sctrl')
+    div(ng-repeat='(key, val) in sctrl.styles')
+        .ww_style
+            h4 {{key}}
+            div
+                input(type='number', name='font-size' ng-maxlength='2', ng-model="sctrl.styles[key].size", ng-change="sctrl.onChange(key)")
+
+                color-picker(ng-model="sctrl.styles[key].color", color-picker-on-change="sctrl.onChange(key)", color-picker-alpha="true", color-picker-swatch="true", color-picker-swatch-only="true")
+
+                div
+                    label show
+                    input(type='checkbox', value='show', ng-model="sctrl.styles[key].show", ng-change="sctrl.onChange(key)")

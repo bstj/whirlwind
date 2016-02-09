@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('whirlwind.task-tree-view', ['ngRoute', 'ui.tree','ui.bootstrap','whirlwind.services.store', 'whirlwind.services.util'])
+angular.module('whirlwind.task-tree-view', ['ngRoute', 'ui.tree','ui.bootstrap','whirlwind.services.store', 'whirlwind.services.util', 'whirlwind.styler'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/task-tree-view/:projectid', {
@@ -141,8 +141,10 @@ angular.module('whirlwind.task-tree-view', ['ngRoute', 'ui.tree','ui.bootstrap',
     };
     self.isRoot = function(node) {
         return node === self.root[0];
-    }
-
+    };
+    self.getClass = function(task) {
+        return "ww-status-" + task.status.replace(/\s/, '-');
+    };
 }]);
 
 angular.module('whirlwind.task-tree-view').controller('DeleteTaskModalController', ['$uibModalInstance', function ($uibModalInstance) {
