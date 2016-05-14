@@ -2,7 +2,7 @@
 
 angular.module('whirlwind.services.store', [
     'ngResource'
-]).factory('store', function($resource) {
+]).factory('store', ['$resource', function($resource) {
     var data = $resource("/rest/tasks/:_id", {},
         {
             projects: {params: {parent:0}, isArray:true, cache:false},
@@ -17,7 +17,7 @@ angular.module('whirlwind.services.store', [
 
        getTask: function(id) {
             if (!id) {
-                id = currentTaskId;
+                id = currentTask.id;
             }
             return data.get({_id:id});
         },
@@ -60,4 +60,4 @@ angular.module('whirlwind.services.store', [
         }
 
     };
-});
+}]);

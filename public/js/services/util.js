@@ -68,9 +68,11 @@ angular.module('whirlwind.services.util', [
 
             var index = extraRules.length;
             extraRules[index] = (extraSheet.cssRules || extraSheet.rules).length;
-            extraSheet.addRule ?
-                extraSheet.addRule(selector, css) :
+            if(extraSheet.addRule) {
+                extraSheet.addRule(selector, css);
+            } else {
                 extraSheet.insertRule(selector + '{' + css + '}', extraRules[index]);
+            }
 
             return {
                 get: function (prop) {

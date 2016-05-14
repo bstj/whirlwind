@@ -45,6 +45,7 @@ update = function(req, res) {
     var query = parseRequest(req);
     delete query.document.nodes; // dont want to store children TODO remove this once client code fixed
     if (query.document._id) {
+        query.document.modified = new Date();
         query.collection.save(query.document, function(err, result) {
             if (err === null) {
                 res.send(result[0]);

@@ -23,18 +23,18 @@ angular.module('whirlwind.styler', ['whirlwind.services.util', 'color.picker'])
         modified: {size: 14, color: "black", show: false, selector: '.ww-estimate'}
     };
 
-    if (! localStorage["styles"]) {
-        localStorage["styles"] = JSON.stringify(defaultStyles);
+    if (! localStorage.styles) {
+        localStorage.styles = JSON.stringify(defaultStyles);
     }
 
     self.styles = {};
     self.rules = {};
 
     self.saveStyles = function() {
-        localStorage["styles"] = JSON.stringify(self.styles);
+        localStorage.styles = JSON.stringify(self.styles);
     };
     self.loadStyles = function() {
-        self.styles = JSON.parse(localStorage["styles"]);
+        self.styles = JSON.parse(localStorage.styles);
     };
     self.onChange = function(style) {
         self.rules[style].set("color", self.styles[style].color);

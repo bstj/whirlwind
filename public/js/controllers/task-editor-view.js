@@ -29,5 +29,5 @@ angular.module('whirlwind.task-editor-view', ['ngRoute', 'ngAnimate', 'textAngul
       ];
       self.unitOptions = [
             "hours","days","weeks","months","percent"
-      ]
+      ];
  }]);

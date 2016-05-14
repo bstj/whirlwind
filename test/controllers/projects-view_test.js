@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 describe('whirlwind.projects-view module', function() {
 

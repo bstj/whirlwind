@@ -1,13 +1,14 @@
 extends layout
 
 block primary-nav
-  ul.menu
-    li
-      a(href='#/projects-view') Projects
-    //li
-    //  a(href='#/task-tree-view') Tasks
-    //li
-    //  a(href='#/task-editor-view') Editor
+  .navbar(class='navbar-inverse navbar-fixed-top')
+    .container
+      .navbar-header
+        a.navbar-brand(href="#") Whirlwind
+      #navbar(class="navbar-collapse collapse")
+        navbar-right
+            li
+              a(class='btn btn-primary', href='#/projects-view') Projects
 
 block content
   .container-fluid(ng-app='whirlwind')

@@ -36,5 +36,5 @@ angular.module('whirlwind.projects-view', ['ngRoute', 'ngAnimate', 'whirlwind.se
             store.setCurrent(project);
             document.location = "#/task-editor-view/" + project._id;
         });
-    }
+    };
 }]);

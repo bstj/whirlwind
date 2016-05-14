@@ -30,12 +30,12 @@ script(type='text/ng-template', id='nodes_renderer.html')
                 span.glyphicon.glyphicon-pencil
         .task-content
             h3 {{node.task.name}}
-            .status status: {{node.task.status}}
-            .description(ng-bind-html='node.task.description')
-            //.priority {{node.priority}}
-            //.estimate {{node.estimate}} {{node.units}}
-            //.target-date {{node.targetDate}}
-            //.notes(ng-bind-html='node.notes')
+            .ww-status status: {{node.task.status}}
+            .ww-description(ng-bind-html='node.task.description')
+            .ww-priority priority:{{node.task.priority}}
+            .ww-estimate estimate: {{node.task.estimate}} {{node.task.units}}
+            .ww-target-date target date: {{node.task.targetDate}}
+            .ww-notes(ng-bind-html='node.task.notes')
     ol(ui-tree-nodes, ng-model='node.nodes', ng-class="{hidden: collapsed}")
         li(ng-repeat='node in node.nodes', ui-tree-node='', ng-include="'nodes_renderer.html'")
 row

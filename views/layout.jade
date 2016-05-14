@@ -1,3 +1,4 @@
+- var env = "prod"
 doctype html
 //if lt IE 7
   html.no-js.lt-ie9.lt-ie8.lt-ie7(lang='en')
@@ -51,11 +52,14 @@ html.no-js(lang='en')
     script(src="/angular-color-picker/angularjs-color-picker.min.js")
     script(src='/rangy/rangy-core.min.js')
     script(src='/rangy/rangy-selectionsaverestore.min.js')
-    script(src='/js/whirlwind.js')
-    script(src='/js/services/util.js')
-    script(src='/js/services/store.js')
-    script(src='/js/controllers/styler.js')
-    script(src='/js/controllers/projects-view.js')
-    script(src='/js/controllers/task-tree-view.js')
-    script(src='/js/controllers/task-editor-view.js')
+    if env == "prod"
+      script(src='/dist/whirlwind.min.js')
+    else
+      script(src='/js/whirlwind.js')
+      script(src='/js/services/util.js')
+      script(src='/js/services/store.js')
+      script(src='/js/controllers/styler.js')
+      script(src='/js/controllers/projects-view.js')
+      script(src='/js/controllers/task-tree-view.js')
+      script(src='/js/controllers/task-editor-view.js')
 
